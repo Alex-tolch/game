@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Game</title>
+        <link rel="stylesheet" href="./css/styles.css">
+    </head>
+    <body>
+        <div class="main">
+            <b>Игра "Угадай число"</b>
+            <small>Цель - угадать число от 0 до 1000 включительно</small>
+            <br>
+            <button onclick="Game()">Начать игру</button>
+        </div>
+        <script>
+        function generateRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+        
+        function Game() {
+            var number = generateRandomNumber(1, 1000);
+            var output_message = "";
+            var counts = 0;
+            while(true) {
+                let input = prompt("Введите число:");
+                if (input.trim().match(/^\s*[0-9]{0,4}\s*$/) && (parseInt(input) >= 0 && parseInt(input) <= 1000)) {
+                    if (parseInt(input)<number) {
+                        alert("Искомое число больше!");
+                        counts++;
+                    } else if (parseInt(input)>number){
+                        alert("Искомое число меньше!");
+                        counts++;
+                    } else if (parseInt(input)==number){
+                        var result = confirm('Вы угадали! Количество попыток: '+counts+'\nНачать заново?');
+                        if (result) {
+                            number = generateRandomNumber(1, 1000);
+                            counts = 0;
+                        } else {
+                            break;
+                        }
+                    }
+                } else {
+                    alert("Введите число от 0 до 1000")
+                }
+            }
+        }
+        </script>
+    </body>
+</html>
